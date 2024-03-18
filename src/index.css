@@ -1,0 +1,332 @@
+:root {
+    --total-columns: 3;
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+
+input[type=date]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+body::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+    /* background: #acaaaa; */
+    width: 6px;
+}
+
+body::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+    background: #acaaaa;
+    border-radius: 10px;
+}
+
+body {
+    font-family: "poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    /* font-size: 12px; */
+}
+
+html {
+    font-size: 12px;
+}
+
+body {
+    font-size: 1.25rem;
+    /* 1rem is equal to the font-size of the root element (html) */
+}
+
+.cv-editor {
+    width: 100vw;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.cv-editor__header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-editor__body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 20px; 
+
+}
+
+.cv-editor__body__left {
+    grid-column: 1 / span 1;
+}
+
+/* .form-group input, .form-group textarea{
+    position: relative;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+} */
+
+.form-group span {
+    position: absolute;
+    left: 0;
+    padding: 8px 10px 0;
+    font-size: 1em;
+    color: #8f8f8f;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.form-group input:valid~span,
+.form-group input:focus~span,
+.form-group textarea:valid~span,
+.form-group textarea:focus~span,
+.form-group input[type='email']:not(:placeholder-shown)~span {
+    color: #8f8f8f;
+    transform: translateX(-10px) translateY(-24px);
+    font-size: 0, 75em;
+}
+
+.form-group i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #535353;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    /* width: calc(33% - 5px); */
+    position: relative;
+    width: calc((100%/var(--total-columns)) - 10px);
+}
+
+.form-group-flex{
+    flex: 1 1 30%;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 5px 5px 15px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+/* textarea {
+    height: 34px;
+    resize: none;
+} */
+
+
+.cv-editor__footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.preview {
+    width: calc(50% - 20px);
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.education-section {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    cursor: move;
+}
+
+
+.form-group {
+    position: relative;
+    height: 2.75rem;
+}
+
+.form-group .input-field {
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid #CBD5E0;
+    background-color: transparent;
+    /* padding-top: 0.625rem;
+    padding-bottom: 0.375rem; */
+    padding-top: 2rem;
+    padding-bottom: 1.2rem;
+    /* font-size: 0.875rem; */
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #4A5568;
+    outline: none;
+    transition: all 0.2s;
+    border-radius: 0;
+    opacity: 1;
+}
+
+.form-group .input-field::placeholder {
+    opacity: 0;
+}
+
+.form-group .input-field:focus::placeholder {
+    opacity: 1;
+}
+
+.form-group .label {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    /* top: -0.25rem; */
+    top: 3px;
+    /* font-size: 0.6875rem; */
+    line-height: 3.25;
+    font-size: 1.1rem;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    overflow: visible;
+    white-space: nowrap;
+    /* font-size: 0.875rem; */
+    font-weight: normal;
+    color: rgb(107 114 128 / 1);
+    transition: all 0.2s;
+}
+
+.form-group .input-field:focus+.label,
+.form-group .input-field:not(:placeholder-shown)+.label {
+    /* top: -0.25rem;  */
+    font-size: 1rem;
+    line-height: 0.25;
+    color: #007bff;
+}
+
+.form-group .label::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.4s;
+}
+
+.form-group .input-field:focus+.label::after {
+    /* bottom: -0.25rem; */
+    transform: scaleX(1);
+}
+
+
+.form-group-textarea {
+    position: relative;
+    width: 100%;
+    max-height: 200px;
+    min-height: 62px;
+    height: 62px;
+}
+
+.form-group-textarea .textarea-field {
+    max-height: 200px;
+    min-height: 62px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #CBD5E0;
+    background-color: transparent;
+    padding-top: 0.625rem;
+    padding-bottom: 0.375rem;
+    /* font-size: 0.875rem; */
+    font-size: 1.1rem;
+    font-weight: normal;
+    color: #4A5568;
+    outline: none;
+    transition: all 0.2s;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.form-group-textarea .textarea-field::placeholder {
+    opacity: 0;
+}
+
+.form-group-textarea .textarea-field:focus::placeholder{
+    opacity: 1;
+}
+
+.form-group-textarea .label {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: -0.25rem;
+    line-height: 3.75;
+    /* font-size: 0.875rem; */
+    font-size: 1.1rem;
+    display: flex;
+    height: 100%;
+    min-height: 62px;
+    width: 100%;
+    user-select: none;
+    overflow: visible;
+    white-space: nowrap;
+    font-weight: normal;
+    color: #CBD5E0;
+    transition: all 0.2s;
+}
+
+.form-group-textarea .textarea-field:focus+.label,
+.form-group-textarea .textarea-field:not(:placeholder-shown)+label {
+    /* top: -0.25rem; */
+    /* font-size: 0.6875rem; */
+    font-size: 1rem;
+    line-height: 0.5;
+    color: #007bff;
+}
+
+.form-group-textarea .label::after{
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    transform: scaleX(0);
+    transition: transform 0.4s;
+}
+
+.form-group-textarea .textarea-field:focus+.label::after{
+    transform: scaleX(1);
+}
+
+.zoom{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 100;
+    color: rgb(26, 26, 26);
+}

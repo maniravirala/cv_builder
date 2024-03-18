@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="A resume builder for Lovely Professional University students to create a professional resume in minutes." />
+  <meta name="keywords"
+    content="resume builder, lpu, lovely professional university, lpu students, lpu resume builder, lpu resume, lpu students resume, cv, cv builder, lpu cv builder, lpu students cv builder" />
+  <meta name="author" content="Ravirala Mani" />
+  <link rel="icon" href="../assets/lpu-logo.ico" type="image/x-icon" />
+
+  <title>CV Editor</title>
+  <link rel="stylesheet" href="./index.css" />
+  <link rel="stylesheet" href="./resume.css" />
+  <script src="./index.js" defer></script>
+  <script src="./data.js" defer></script>
+  <script src="./defer.js"></script>
+  <link rel="stylesheet" href="https://use.typekit.net/umf5tls.css" />
+  <script src="https://kit.fontawesome.com/1590b60672.js" crossorigin="anonymous"></script>
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Pdf -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfkit/0.11.0/pdfkit.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+
+  <!-- Docx -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.45.0/docxtemplater.js"></script>
+  <script src="https://unpkg.com/pizzip@3.1.6/dist/pizzip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+  <script src="https://unpkg.com/pizzip@3.1.6/dist/pizzip-utils.js"></script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- DatePicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" />
+</head>
+
+<body>
+  <div class="cv-editor">
+    <div class="cv-editor__header">
+      <h1>CV Editor</h1>
+    </div>
+    <div class="cv-editor__body">
+      <div class="cv-editor__body__left">
+        <div class="cv-editor__body__left__personal-info">
+          <h2 class="text-xl font-semibold">Personal Information</h2>
+          <div id="personal-info-form" class="form">
+            <div class="form-group form-group-flex">
+              <input placeholder="Name" class="input-field" id="name" required />
+              <label class="label"> Name </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="Email" class="input-field" id="email" required />
+              <label class="label"> Email </label>
+            </div>
+
+            <div class="form-group form-group-flex">
+              <input placeholder="Position" class="input-field" id="position" required />
+              <label class="label"> Position </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="Phone" class="input-field" id="phone" required />
+
+              <label class="label"> Phone </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="City" class="input-field" id="city" required />
+              <label class="label"> City </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-editor__body__left__social-media">
+          <h2 class="text-xl font-semibold">Social Media</h2>
+          <div id="social-media-form" class="form">
+            <div class="form-group form-group-flex">
+              <input placeholder="Linkedin" class="input-field" id="linkedin" required />
+              <label class="label"> Linkedin </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="Github" class="input-field" id="github" required />
+              <label class="label"> Github </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-editor__body__left__summary">
+          <h2 class="text-xl font-semibold">Summary</h2>
+          <div id="summary-form" class="form">
+            <div class="form-group-textarea">
+              <textarea placeholder="Summary" class="textarea-field" id="summary" required></textarea>
+              <label class="label"> Summary </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-editor__body__left__technical-skills">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Technical Skills</h2>
+            <button id="skill_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="technical-skills">
+            <div id="programming-languages-form" class="form mb-0">
+              <div class="form-group form-group-flex" style="margin-bottom: 10px">
+                <input placeholder="Programming Languages" class="input-field comma" required />
+                <label class="label"> Programming Languages </label>
+              </div>
+            </div>
+          </div>
+
+          <p
+            class="flex items-center gap-1 mt-0 mb-7 font-sans text-sm antialiased font-normal leading-normal text-gray-400">
+            <i class="fas fa-circle-info"></i>
+            Use comma to separate multiple skills
+          </p>
+        </div>
+
+        <!-- certificates -->
+        <div class="cv-editor__body__left__certificates">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Certificates</h2>
+            <button id="certificate_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="certificates" class="recursive_data">
+            <div class="certificates-form form">
+              <div class="form-group form-group-flex">
+                <input placeholder="Certificate" class="input-field" name="certificate" required />
+                <label class="label"> Certificate </label>
+              </div>
+
+              <div class="form-group form-group-flex">
+                <input placeholder="Issued By" class="input-field" name="issued_by" required />
+                <label class="label"> Issued By </label>
+              </div>
+
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="Date" class="input-field" name="date" required
+                  autocomplete="off" />
+                <label class="label"> Date </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Power Skills -->
+        <div class="cv-editor__body__left__power-skills">
+          <h2 class="text-xl font-semibold">Power Skills</h2>
+          <div id="power-skills-form" class="form mb-0">
+            <div class="form-group form-group-flex" style="margin-bottom: 10px">
+              <input placeholder="Power Skills" class="input-field comma" id="power_skills" required />
+              <label class="label"> Power Skills </label>
+            </div>
+          </div>
+          <p
+            class="flex items-center gap-1 mt-0 mb-7 font-sans text-sm antialiased font-normal leading-normal text-gray-400">
+            <i class="fas fa-circle-info"></i>
+            Use comma to separate multiple skills
+          </p>
+        </div>
+
+        <!-- Extra Curricular Activities -->
+        <div class="cv-editor__body__left__extra-curricular-activities">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Extra Curricular Activities</h2>
+            <button id="activity_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="activitiy">
+            <div class="activitiy-form form">
+              <div class="form-group form-group-flex">
+                <input placeholder="Activity" class="input-field" name="activitiy" required />
+                <label class="label"> Activity </label>
+              </div>
+
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="Date" class="input-field" name="date" required
+                  autocomplete="off" />
+                <label class="label"> Date </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Internship -->
+        <div class="cv-editor__body__left__internship">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Internship</h2>
+            <button id="internship_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="internship-form" class="form">
+            <div class="form-group form-group-flex">
+              <input placeholder="Company" class="input-field" type="text" name="company" required />
+              <label class="label"> Company </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="Position" class="input-field" type="text" name="position" required />
+              <label class="label"> Position </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input placeholder="Location" class="input-field" type="text" name="location" required />
+              <label class="label"> Location </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input data-toggle="datepicker" placeholder="Start Date" class="input-field" name="start_date" required
+                autocomplete="off" />
+              <label class="label"> Start Date </label>
+            </div>
+            <div class="form-group form-group-flex">
+              <input data-toggle="datepicker" placeholder="End Date" class="input-field" name="end_date" required
+                autocomplete="off" />
+              <label class="label"> End Date </label>
+            </div>
+            <div class="form-group-textarea">
+              <textarea placeholder="Experience" class="textarea-field" name="experience" required></textarea>
+              <label class="label"> Experience </label>
+            </div>
+          </div>
+          <p
+            class="flex items-center gap-1 mt-0 mb-7 font-sans text-sm antialiased font-normal leading-normal text-gray-400">
+            <i class="fas fa-circle-info"></i>
+            1. What you did 2. What you achieved 3. What you learned
+          </p>
+        </div>
+
+        <!-- Projects -->
+        <div class="cv-editor__body__left__projects">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Projects</h2>
+            <button id="project_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="projects">
+            <div class="projects-form form">
+              <div class="form-group form-group-flex">
+                <input placeholder="Project" class="input-field" name="project" required />
+                <label class="label"> Project </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input placeholder="Domain" class="input-field" name="domain" required />
+                <label class="label"> Domain </label>
+              </div>
+              <div class="form-group w-[72%]">
+                <input placeholder="Tech Stack" class="input-field" name="technologies" required />
+                <label class="label"> Tech Stack </label>
+              </div>
+              <div class="form-group w-[24%]">
+                <input data-toggle="datepicker" placeholder="Date" class="input-field" name="start_date" required
+                  autocomplete="off" />
+                <label class="label"> Date </label>
+              </div>
+              <div class="form-group-textarea">
+                <textarea placeholder="Description" class="textarea-field" name="description" required></textarea>
+                <label class="label"> Description </label>
+              </div>
+            </div>
+          </div>
+          <p
+            class="flex items-center gap-1 mt-0 mb-7 font-sans text-sm antialiased font-normal leading-normal text-gray-400">
+            <i class="fas fa-circle-info"></i>
+            1. What you did 2. What you achieved 3. What you learned
+          </p>
+        </div>
+
+      </div>
+      <div id="resume">
+        <div class="zoom">
+          <button onclick="zoomIn()">
+            <i class="fas fa-search-plus fa-xl"></i>
+          </button>
+          <button onclick="zoomOut()">
+            <i class="fas fa-search-minus fa-xl"></i>
+          </button>
+        </div>
+
+        <div class="cv-editor__body__right">
+          <div class="cv-editor__body__right__personal-info">
+            <div class="personal-info">
+              <!-- make3 divs for equally 1st part for profile 2nd part for name and poston and third part for contact -->
+              <div class="personal-info__profile">
+                <img id="personal-info-profile" src="https://www.w3schools.com/howto/img_avatar.png" alt="profile" />
+              </div>
+              <div class="personal-info__name">
+                <h1 id="personal-info-name" class="wrapping">Ravirala Mani</h1>
+                <p id="personal-info-position" class="wrapping">Aspiring Full Stack Developer</p>
+              </div>
+              <div class="personal-info__contact">
+                <div id="personal-info-email" class="">
+                  <span><i class="fas fa-envelope"></i></span>
+                  <span>test@test.com</span>
+                </div>
+                <div id="personal-info-phone" class="">
+                  <span><i class="fas fa-phone"></i></span>
+                  <span>+91 9876543210</span>
+                </div>
+                <div id="personal-info-city" class="">
+                  <span><i class="fas fa-map marker-alt"></i></span>
+                  <span>Hyderabad, Telangana</span>
+                </div>
+                <div id="personal-info-github" class="">
+                  <span><i class="fab fa-github"></i></span>
+                  <a href="https://github.com/maniravirala" target="_blank">https://github.com/maniravirala</a>
+                </div>
+                <div id="personal-info-linkedin" class="">
+                  <span><i class="fab fa-linkedin"></i></span>
+                  <a href="https://linkedin.com/in/maniravirala"
+                    target="_blank">https://linkedin.com/in/maniravirala</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cv_main">
+            <div class="cv_main__left">
+              <div class="cv_main-item" id="cv_main-summary__id">
+                <h2 class="cv_main-item__title">Summary</h2>
+                <p class="cv_main-item__content">
+                  Resourceful Developer with 11 years of experience in
+                  designing and developing user interfaces, testing and
+                  training employees. Skilled at utilizing a wide vc ariety of
+                  tools and programs to provide effective applications.
+                </p>
+              </div>
+              <div class="item-border"></div>
+              <div class="cv_main-item" id="cv_main-technical_skills__id">
+                <h2 class="cv_main-item__title">Technical Skills</h2>
+                <div class="cv_main-item__category cv_main-technical_skills">
+                  <span>Programming Languages:</span>
+                  <p>C, C++, Java, Python, JavaScript</p>
+                </div>
+                <div class="cv_main-item__category cv_main-technical_skills">
+                  <span>Web Technologies:</span>
+                  <p>HTML, CSS, JavaScript, React, Angular, Vue</p>
+                </div>
+                <div class="cv_main-item__category cv_main-technical_skills">
+                  <span>Database</span>
+                  <p>MySQL, MongoDB, PostgreSQL, SQLite</p>
+                </div>
+                <div class="cv_main-item__category cv_main-technical_skills">
+                  <span>Tools</span>
+                  <p>Git, Docker, Jenkins, Jira, Confluence</p>
+                </div>
+              </div>
+              <div class="item-border"></div>
+              <div class="cv_main-item" id="cv_main-certificate__id">
+                <h2 class="cv_main-item__title">Certifications</h2>
+                <ul>
+                  <li class="cv_main-item__category cv_main-certifications">
+                    <span class="cv_main-item_certification">Full Stack Web Development</span>
+                    <div class="cv_main-item_certification">
+                      <span class="cv_main-item_issuedby">Udemy</span>
+                      <span class="span_border">|</span>
+                      <span class="cv_main-item_date">Apr 2022</span>
+                    </div>
+                  </li>
+                  <li class="cv_main-item__category cv_main-certifications">
+                    <span class="cv_main-item_certification">Data Science</span>
+                    <div class="cv_main-item_certification">
+                      <span class="cv_main-item_issuedby">Coursera</span>
+                      <span class="span_border">|</span>
+                      <span class="cv_main-item_date">Mar 2022</span>
+                    </div>
+                  </li>
+                  <li class="cv_main-item__category cv_main-certifications">
+                    <span class="cv_main-item_certification">Machine Learning</span>
+                    <div class="cv_main-item_certification">
+                      <span class="cv_main-item_issuedby">Board Infinity</span>
+                      <span class="span_border">|</span>
+                      <span class="cv_main-item_date">Feb 2022</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="item-border"></div>
+              <div class="cv_main-item cv_main-power_skills">
+                <h2 class="cv_main-item__title">Power Skills</h2>
+                <ul>
+                  <li>Leadership</li>
+                  <li>Teamwork</li>
+                  <li>Problem Solving</li>
+                </ul>
+              </div>
+              <div class="item-border"></div>
+              <div class="cv_main-item cv_main-activities">
+                <h2 class="cv_main-item__title">Extra Curricular Activities</h2>
+                <ul>
+                  <li class="cv_main-item__category cv_main-activities">
+                    <span class="cv_main-item_activity">An Event on Interaction with strangers to build Paper
+                      block</span>
+                    <span class="span_border">|</span>
+                    <span class="cv_main-item_date">Apr 2022</span>
+                  </li>
+                  <li class="cv_main-item__category cv_main-activities">
+                    <span class="cv_main-item_activity">Volunteer</span>
+                    <span class="span_border">|</span>
+                    <span class="cv_main-item_date">Mar 2022</span>
+                  </li>
+                  <li class="cv_main-item__category cv_main-activities">
+                    <span class="cv_main-item_activity">Event Coordinator</span>
+                    <span class="span_border">|</span>
+                    <span class="cv_main-item_date">Feb 2022</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="item-border last-border"></div>
+            </div>
+            <div class="main-border"></div>
+            <div class="cv_main__right">
+              <!-- add internship -->
+              <div class="cv_main-item" id="cv_main-internship__id">
+                <h2 class="cv_main-item__title">Internship</h2>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">torph TTC</span>
+                    <span class="cv_main-item_date"><span class="cv_main-item-start_date">Mar 2022</span> - <span
+                        class="cv_main-item-end_date">Feb 2023</span></span>
+                  </div>
+                  <div class="cv_main-item-second">
+                    <span class="cv_main-item_position">front end web developer</span>
+                    <span>|</span>
+                    <span class="cv_main-item_location">online</span>
+                  </div>
+                  <div class="cv_main-item_experience">
+                    <ul>
+                      <li>Created and maintained 10 web applications for numerous national and foreign clients.</li>
+                      <li>Developed and implemented a mobile application for a client that increased revenue by 20%.
+                      </li>
+                      <li>Trained 5 interns in JavaScript, HTML, and CSS.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="item-border"></div>
+              <!-- add summer training -->
+              <div class="cv_main-item" id="cv_main-trainings__id">
+                <h2 class="cv_main-item__title">Summer Training</h2>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">JavaScript for Web Development</span>
+                    <span class="cv_main-item_date"><span class="cv_main-item-start_date">Mar 2022</span> - <span
+                        class="cv_main-item-end_date">Feb 2023</span></span>
+                  </div>
+                  <div class="cv_main-item-second">
+                    <span class="cv_main-item_company">board infinity</span>
+                    <span>|</span>
+                    <span class="cv_main-item_location">online</span>
+                  </div>
+                  <div class="cv_main-item_experience">
+                    <ul>
+                      <li>Created and maintained 10 web applications for numerous national and foreign clients.</li>
+                      <li>Developed and implemented a mobile application for a client that increased revenue by 20%.
+                      </li>
+                      <li>Trained 5 interns in JavaScript, HTML, and CSS.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="item-border"></div>
+              <!-- Projects -->
+              <div class="cv_main-item" id="cv_main-projects__id">
+                <h2 class="cv_main-item__title">Projects</h2>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">E-commerce Website</span>
+                    <span class="cv_main-item_date">Mar 2022</span>
+                  </div>
+                  <div class="cv_main-item-second">
+                    <span class="cv_main-item_domain">Web Development</span>
+                    <span>|</span>
+                    <span class="cv_main-item_technologies">HTML, CSS, JavaScript, React</span>
+                  </div>
+                  <div class="cv_main-item_experience">
+                    <ul>
+                      <li>Created and maintained 10 web applications for numerous national and foreign clients.</li>
+                      <li>Developed and implemented a mobile application for a client that increased revenue by 20%.
+                      </li>
+                      <li>Trained 5 interns in JavaScript, HTML, and CSS.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="item-border"></div>
+              <!-- Achievements -->
+              <div class="cv_main-item" id="cv_main-achievements__id">
+                <h2 class="cv_main-item__title">Achievements</h2>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">Byte Bash Hackathon </span>
+                    <span class="cv_main-item_date">Mar 2022</span>
+                  </div>
+                  <div class="cv_main-item_experience">
+                    <p>
+                      Achieved 1st position in the hackathon by developing a web application that helps in managing
+                      the daily tasks of the user. The application was developed using HTML, CSS, and JavaScript. The
+                      application was appreciated by the judges for its simplicity and user-friendly interface.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item-border"></div>
+              <!-- Education -->
+              <div class="cv_main-item" id="cv_main-education__id">
+                <h2 class="cv_main-item__title">Education</h2>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">B.Tech in Computer Science</span>
+                    <span class="cv_main-item_date">
+                      <span class="cv_main-item-start_date">Mar 2022</span> - <span class="cv_main-item-end_date">Feb
+                        2023</span>
+                    </span>
+                  </div>
+                  <div class="cv_main-item-third">
+                    <div class="cv_main-item-second">
+                      <span class="cv_main-item_school">Lovely Professional University</span>
+                      <span>|</span>
+                      <span class="cv_main-item_location">Phagwara, Punjab</span>
+                    </div>
+                    <div class="cv_main-item_cgpa">
+                      <span class="cv_main-item_cgpa_category">CGPA: <span
+                          class="cv_main-item_cgpa_score">8.50</span></span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="cv_main-item__category cv_main-item-parent">
+                  <div class="cv_main-item-first">
+                    <span class="cv_main-item_name">Senior Secondary</span>
+                    <span class="cv_main-item_date">
+                      <span class="cv_main-item-start_date">Mar 2022</span> - <span class="cv_main-item-end_date">Feb
+                        2023</span>
+                    </span>
+                  </div>
+                  <div class="cv_main-item-third">
+                    <div class="cv_main-item-second">
+                      <span class="cv_main-item_school">D.A.V Public School</span>
+                      <span>|</span>
+                      <span class="cv_main-item_location">Jalandhar, Punjab</span>
+                    </div>
+                    <div class="cv_main-item_cgpa">
+                      <span class="cv_main-item_cgpa_category">CGPA: <span
+                          class="cv_main-item_cgpa_score">8.50</span></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="item-border"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-editor__footer">
+      <button id="export-pdf">Export PDF</button>
+      <button id="export-docx">Export DOCX</button>
+      <button id="generate-pdf">Generate PDF</button>
+    </div>
+  </div>
+</body>
+
+</html>
