@@ -41,10 +41,9 @@ body {
 }
 
 .cv-editor {
-    width: 100vw;
+    height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    overflow-y: auto;
 }
 
 .cv-editor__header {
@@ -53,14 +52,20 @@ body {
 }
 
 .cv-editor__body {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr auto;
-    grid-gap: 20px; 
-
+    grid-gap: 20px;  */
+    height: 86%;
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
 }
 
 .cv-editor__body__left {
-    grid-column: 1 / span 1;
+    /* grid-column: 1 / span 1; */
+    /* width: 30%; */
+    overflow-y: auto;
+    flex: 1;
 }
 
 /* .form-group input, .form-group textarea{

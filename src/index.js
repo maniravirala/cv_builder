@@ -258,14 +258,28 @@ $('input[data-toggle="datepicker"]').datepicker({
 });
 
 // Zoom in and out
-let zoomLevel = 1; // Initial zoom level
+// get zoom level from local storage if it exists else set it to 1 and also if it has no value or null value or undefined value or NaN value then set it to 1
+
+let zoomLevel = localStorage.getItem("zoomLevel");
 
 function zoomIn() {
-  zoomLevel += 0.1;
-  document.getElementById('resume').style.zoom = zoomLevel;
+    zoomLevel = parseFloat(zoomLevel);
+    if (isNaN(zoomLevel) || zoomLevel === null || zoomLevel === undefined || zoomLevel === "") {
+        zoomLevel = 1;
+    }
+    console.log(zoomLevel);
+    zoomLevel += 0.1;
+    document.getElementById('resume').style.zoom = zoomLevel;
+    localStorage.setItem("zoomLevel", zoomLevel.toString());
 }
 
 function zoomOut() {
-  zoomLevel -= 0.1;
-  document.getElementById('resume').style.zoom = zoomLevel;
+    zoomLevel = parseFloat(zoomLevel);
+    if (isNaN(zoomLevel) || zoomLevel === null || zoomLevel === undefined || zoomLevel === "" || zoomLevel <= 0.1) {
+        zoomLevel = 1;
+    }
+    console.log(zoomLevel);
+    zoomLevel -= 0.1;
+    document.getElementById('resume').style.zoom = zoomLevel;
+    localStorage.setItem("zoomLevel", zoomLevel.toString());
 }
