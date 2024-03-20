@@ -22,6 +22,10 @@
         zoom: 1 !important;
     }
 
+    .navbar{
+        display: none;
+    }
+
     .cv-editor__body__right {
         height: 11.7in;
         width: 8.3in;

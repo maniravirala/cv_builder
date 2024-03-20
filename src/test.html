@@ -3,101 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Editor</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-    }
-    
-    .container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-    
-    .left {
-        padding: 20px;
-        overflow-y: auto;
-        flex: 1 1 20%;
-    }
-    
-    .right {
-        /* padding: 20px; */
-        overflow-y: auto;
-        border-left: 1px solid #ccc;
-        box-sizing: border-box;
-        width: 210mm;
-    }
-    
-    .resume-preview {
-        width: 210mm;
-        height: 297mm;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin: auto;
-        overflow: hidden;
-    }
-    @media print {
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: block;
-            width: 100%;
-            height: auto;
-            overflow: hidden;
-        }
-        .left {
-            display: none;
-        }
-        .resume-preview {
-            width: 210mm;
-            height: 297mm;
-            background-color: rgb(255, 0, 0);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: auto;
-            overflow: hidden;
-        }
-    }
-</style>
+<title>Form Cloning and Local Storage</title>
 </head>
 <body>
-    <div class="container">
-        <div class="left">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="John Doe"><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="johndoe@example.com"><br><br>
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" value="123-456-7890"><br><br>
-            <label for="summary">Summary:</label><br>
-            <textarea id="summary" name="summary">A highly motivated individual with a passion for technology and innovation.</textarea><br><br>
-            <label for="experience">Experience:</label><br>
-            <textarea id="experience" name="experience">Software Engineer at ABC Corp, Responsibilities included...</textarea><br><br>
-            <label for="education">Education:</label><br>
-            <textarea id="education" name="education">Bachelor's Degree in Computer Science, XYZ University</textarea><br><br>
-            <!-- Add more inputs as needed -->
-        </div>
-        <div class="right">
-            <div class="resume-preview">
-                <h1>John Doe</h1>
-                <p>Email: johndoe@example.com</p>
-                <p>Phone: 123-456-7890</p>
-                <h2>Summary</h2>
-                <p>A highly motivated individual with a passion for technology and innovation.</p>
-                <h2>Experience</h2>
-                <p>Software Engineer at ABC Corp, Responsibilities included...</p>
-                <h2>Education</h2>
-                <p>Bachelor's Degree in Computer Science, XYZ University</p>
-                <!-- Add more preview content as needed -->
-            </div>
-        </div>
-    </div>
+<div id="formContainer">
+  <form id="form1">
+    <label for="name">Name:</label>
+    <input type="text" id="name1" name="name">
+    <label for="email">Email:</label>
+    <input type="email" id="email1" name="email">
+    <button type="button" onclick="addForm()">Add</button>
+  </form>
+</div>
+
+<script>
+// Initialize array to store form data
+let formDataArray = [];
+
+// Counter for generating unique IDs
+let formCounter = 1;
+
+// Function to add a cloned form
+// Function to add a cloned form
+function addForm() {
+  formCounter++; // Increment counter for unique IDs
+  const originalForm = document.querySelector('#form1');
+  const clonedForm = originalForm.cloneNode(true);
+
+  // Generate unique IDs for cloned form elements
+  clonedForm.id = 'form' + formCounter;
+  clonedForm.querySelector('input[name="name"]').id = 'name' + formCounter;
+  clonedForm.querySelector('input[name="email"]').id = 'email' + formCounter;
+
+  // Add cloned form to the container
+  document.querySelector('#formContainer').appendChild(clonedForm);
+
+  // Clear input values in cloned form
+  clonedForm.querySelectorAll('input').forEach(input => input.value = '');
+
+  // Add event listener to cloned form submit button
+  const addButton = clonedForm.querySelector('button');
+  addButton.textContent = 'Remove';
+  addButton.setAttribute('onclick', 'removeForm(this)');
+
+  // Push cloned form data to array
+  formDataArray.push({
+    id: clonedForm.id,
+    name: clonedForm.querySelector('input[name="name"]').value,
+    email: clonedForm.querySelector('input[name="email"]').value
+  });
+
+  // Store form data array in local storage
+  localStorage.setItem('formData', JSON.stringify(formDataArray));
+
+  // Add event listeners to update form data array and local storage on input change
+  clonedForm.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', function() {
+      const index = formDataArray.findIndex(data => data.id === clonedForm.id);
+      formDataArray[index][input.name] = input.value;
+      localStorage.setItem('formData', JSON.stringify(formDataArray));
+    });
+  });
+}
+
+// Function to remove a form
+function removeForm(button) {
+  const formToRemove = button.parentNode;
+  formToRemove.remove();
+
+  // Update form data array after removing form
+  formDataArray = formDataArray.filter(data => data.id !== formToRemove.id);
+
+  // Update local storage after removing form
+  localStorage.setItem('formData', JSON.stringify(formDataArray));
+}
+
+// Load saved form data from local storage
+window.onload = function() {
+  const savedData = localStorage.getItem('formData');
+  if (savedData) {
+    formDataArray = JSON.parse(savedData);
+
+    // Add saved forms to container
+    formDataArray.forEach(data => {
+      addFormWithData(data);
+    });
+
+    // Update form counter based on existing forms
+    formCounter = formDataArray.length;
+  }
+}
+
+// Function to add form with saved data
+function addFormWithData(data) {
+  const originalForm = document.querySelector('#form1');
+  const clonedForm = originalForm.cloneNode(true);
+  clonedForm.id = data.id;
+  clonedForm.querySelector('input[name="name"]').id = 'name' + data.id.slice(4);
+  clonedForm.querySelector('input[name="email"]').id = 'email' + data.id.slice(4);
+  clonedForm.querySelector('input[name="name"]').value = data.name;
+  clonedForm.querySelector('input[name="email"]').value = data.email;
+  document.querySelector('#formContainer').appendChild(clonedForm);
+  const addButton = clonedForm.querySelector('button');
+  addButton.textContent = 'Remove';
+  addButton.setAttribute('onclick', 'removeForm(this)');
+}
+</script>
 </body>
 </html>

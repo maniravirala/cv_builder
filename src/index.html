@@ -12,11 +12,12 @@
   <link rel="icon" href="../assets/lpu-logo.ico" type="image/x-icon" />
 
   <title>CV Editor</title>
-  <link rel="stylesheet" href="./index.css" />
-  <link rel="stylesheet" href="./resume.css" />
-  <script src="./index.js" defer></script>
-  <script src="./data.js" defer></script>
-  <script src="./defer.js"></script>
+  <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/resume.css" />
+  <link rel="stylesheet" href="./css/navbar.css">
+  <script src="./js/data.js" defer></script>
+  <script src="./js/defer.js" defer></script>
+  <script src="./js/index.js" defer></script>
   <link rel="stylesheet" href="https://use.typekit.net/umf5tls.css" />
   <script src="https://kit.fontawesome.com/1590b60672.js" crossorigin="anonymous"></script>
 
@@ -52,72 +53,115 @@
     <div class="cv-editor__body">
       <div class="cv-editor__body__left">
         <div class="cv-editor__body__left__personal-info">
-          <h2 class="text-xl font-semibold">Personal Information</h2>
+          <h2 class="cv-editor__body__left-header">Personal Information</h2>
           <div id="personal-info-form" class="form">
             <div class="form-group form-group-flex">
-              <input placeholder="Name" class="input-field" id="name" required />
+              <input placeholder="Name" name="name" class="input-field" id="name" required />
               <label class="label"> Name </label>
             </div>
             <div class="form-group form-group-flex">
-              <input placeholder="Email" class="input-field" id="email" required />
+              <input placeholder="Email" name="email" class="input-field" id="email" required />
               <label class="label"> Email </label>
             </div>
 
             <div class="form-group form-group-flex">
-              <input placeholder="Position" class="input-field" id="position" required />
+              <input placeholder="Position" name="position" class="input-field" id="position" required />
               <label class="label"> Position </label>
             </div>
             <div class="form-group form-group-flex">
-              <input placeholder="Phone" class="input-field" id="phone" required />
+              <input placeholder="Phone" name="phone" class="input-field" id="phone" required />
 
               <label class="label"> Phone </label>
             </div>
             <div class="form-group form-group-flex">
-              <input placeholder="City" class="input-field" id="city" required />
+              <input placeholder="City" name="city" class="input-field" id="city" required />
               <label class="label"> City </label>
             </div>
           </div>
         </div>
 
         <div class="cv-editor__body__left__social-media">
-          <h2 class="text-xl font-semibold">Social Media</h2>
+          <h2 class="cv-editor__body__left-header">Social Media</h2>
           <div id="social-media-form" class="form">
             <div class="form-group form-group-flex">
-              <input placeholder="Linkedin" class="input-field" id="linkedin" required />
+              <input placeholder="Linkedin" name="linkedin" class="input-field" id="linkedin" required />
               <label class="label"> Linkedin </label>
             </div>
             <div class="form-group form-group-flex">
-              <input placeholder="Github" class="input-field" id="github" required />
+              <input placeholder="Github" name="github" class="input-field" id="github" required />
               <label class="label"> Github </label>
             </div>
           </div>
         </div>
 
         <div class="cv-editor__body__left__summary">
-          <h2 class="text-xl font-semibold">Summary</h2>
+          <h2 class="cv-editor__body__left-header">Summary</h2>
           <div id="summary-form" class="form">
             <div class="form-group-textarea">
-              <textarea placeholder="Summary" class="textarea-field" id="summary" required></textarea>
+              <textarea placeholder="Summary" name="summary" class="textarea-field" id="summary" required></textarea>
               <label class="label"> Summary </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="cv-editor__body__left__education">
+          <div class="flex items center justify-between">
+            <h2 class="cv-editor__body__left-header">Education</h2>
+            <button id="education_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="education">
+            <div id="education__id" class="education-form form">
+              <div class="form-group
+                form-group-flex">
+                <input placeholder="Degree" class="input-field" name="degree" required />
+                <label class="label"> Degree </label>
+              </div>
+              <div class="form-group
+                form-group-flex">
+                <input placeholder="School" class="input-field" name="school" required />
+                <label class="label"> School </label>
+              </div>
+              <div class="form-group
+                form-group-flex">
+                <input placeholder="Location" class="input-field" name="location" required />
+                <label class="label"> Location </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="Start Date" class="input-field" name="start_date" required
+                  autocomplete="off" />
+                <label class="label"> Start Date </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="End Date" class="input-field" name="end_date" required
+                  autocomplete="off" />
+                <label class="label"> End Date </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input placeholder="CGPA" class="input-field" name="cgpa" required />
+                <label class="label"> CGPA </label>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="cv-editor__body__left__technical-skills">
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Technical Skills</h2>
+            <h2 class="cv-editor__body__left-header">Technical Skills</h2>
             <button id="skill_add" class="h-full mr-2 bg-transparent border-none">
               <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
             </button>
           </div>
-          <div id="technical-skills">
-            <div id="programming-languages-form" class="form mb-0">
+          <div id="technical_skills">
+            <div id="skill__id" class="technical-form form mb-0">
               <div class="form-group " style="margin-bottom: 10px;">
-                <input placeholder="Domain" class="input-field comma" required />
+                <input placeholder="Domain" name="domain" class="input-field comma" required />
                 <label class="label"> Domain</label>
               </div>
               <div class="form-group form-group-flex" style="margin-bottom: 10px">
-                <input placeholder="Skills" class="input-field comma" required />
+                <input placeholder="Skills" name="skills" class="input-field comma" required />
                 <label class="label"> Skills </label>
               </div>
             </div>
@@ -133,13 +177,13 @@
         <!-- certificates -->
         <div class="cv-editor__body__left__certificates">
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Certificates</h2>
+            <h2 class="cv-editor__body__left-header">Certificates</h2>
             <button id="certificate_add" class="h-full mr-2 bg-transparent border-none">
               <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
             </button>
           </div>
           <div id="certificates" class="recursive_data">
-            <div class="certificates-form form">
+            <div id="certificate__id" class="certificates-form form">
               <div class="form-group form-group-flex">
                 <input placeholder="Certificate" class="input-field" name="certificate" required />
                 <label class="label"> Certificate </label>
@@ -161,10 +205,10 @@
 
         <!-- Power Skills -->
         <div class="cv-editor__body__left__power-skills">
-          <h2 class="text-xl font-semibold">Power Skills</h2>
+          <h2 class="cv-editor__body__left-header">Power Skills</h2>
           <div id="power-skills-form" class="form mb-0">
             <div class="form-group form-group-flex" style="margin-bottom: 10px">
-              <input placeholder="Power Skills" class="input-field comma" id="power_skills" required />
+              <input placeholder="Power Skills" name="power_skills" class="input-field comma" id="power_skills" required />
               <label class="label"> Power Skills </label>
             </div>
           </div>
@@ -178,15 +222,15 @@
         <!-- Extra Curricular Activities -->
         <div class="cv-editor__body__left__extra-curricular-activities">
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Extra Curricular Activities</h2>
+            <h2 class="cv-editor__body__left-header">Extra Curricular Activities</h2>
             <button id="activity_add" class="h-full mr-2 bg-transparent border-none">
               <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
             </button>
           </div>
-          <div id="activitiy">
-            <div class="activitiy-form form">
+          <div id="activity">
+            <div id="activity__id" class="activity-form form">
               <div class="form-group form-group-flex">
-                <input placeholder="Activity" class="input-field" name="activitiy" required />
+                <input placeholder="Activity" class="input-field" name="activity" required />
                 <label class="label"> Activity </label>
               </div>
 
@@ -202,37 +246,39 @@
         <!-- Internship -->
         <div class="cv-editor__body__left__internship">
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Internship</h2>
+            <h2 class="cv-editor__body__left-header">Internship</h2>
             <button id="internship_add" class="h-full mr-2 bg-transparent border-none">
               <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
             </button>
           </div>
-          <div id="internship-form" class="form">
-            <div class="form-group form-group-flex">
-              <input placeholder="Company" class="input-field" type="text" name="company" required />
-              <label class="label"> Company </label>
-            </div>
-            <div class="form-group form-group-flex">
-              <input placeholder="Position" class="input-field" type="text" name="position" required />
-              <label class="label"> Position </label>
-            </div>
-            <div class="form-group form-group-flex">
-              <input placeholder="Location" class="input-field" type="text" name="location" required />
-              <label class="label"> Location </label>
-            </div>
-            <div class="form-group form-group-flex">
-              <input data-toggle="datepicker" placeholder="Start Date" class="input-field" name="start_date" required
-                autocomplete="off" />
-              <label class="label"> Start Date </label>
-            </div>
-            <div class="form-group form-group-flex">
-              <input data-toggle="datepicker" placeholder="End Date" class="input-field" name="end_date" required
-                autocomplete="off" />
-              <label class="label"> End Date </label>
-            </div>
-            <div class="form-group-textarea">
-              <textarea placeholder="Experience" class="textarea-field" name="experience" required></textarea>
-              <label class="label"> Experience </label>
+          <div id="internship">
+            <div id="internship__id" class="internship-form form">
+              <div class="form-group form-group-flex">
+                <input placeholder="Company" class="input-field" type="text" name="company" required />
+                <label class="label"> Company </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input placeholder="Position" class="input-field" type="text" name="position" required />
+                <label class="label"> Position </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input placeholder="Location" class="input-field" type="text" name="location" required />
+                <label class="label"> Location </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="Start Date" class="input-field" name="start_date" required
+                  autocomplete="off" />
+                <label class="label"> Start Date </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="End Date" class="input-field" name="end_date" required
+                  autocomplete="off" />
+                <label class="label"> End Date </label>
+              </div>
+              <div class="form-group-textarea">
+                <textarea placeholder="Experience" class="textarea-field" name="experience" required></textarea>
+                <label class="label"> Experience </label>
+              </div>
             </div>
           </div>
           <p
@@ -245,13 +291,13 @@
         <!-- Projects -->
         <div class="cv-editor__body__left__projects">
           <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Projects</h2>
+            <h2 class="cv-editor__body__left-header">Projects</h2>
             <button id="project_add" class="h-full mr-2 bg-transparent border-none">
               <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
             </button>
           </div>
           <div id="projects">
-            <div class="projects-form form">
+            <div id="project__id" class="projects-form form">
               <div class="form-group form-group-flex">
                 <input placeholder="Project" class="input-field" name="project" required />
                 <label class="label"> Project </label>
@@ -281,6 +327,34 @@
             1. What you did 2. What you achieved 3. What you learned
           </p>
         </div>
+
+        <!-- Achievements -->
+        <div class="cv-editor__body__left__achievements">
+          <div class="flex items-center justify-between">
+            <h2 class="cv-editor__body__left-header">Achievements</h2>
+            <button id="achievement_add" class="h-full mr-2 bg-transparent border-none">
+              <i class="fas fa-plus-circle fa-lg cursor-pointer text-gray-500"></i>
+            </button>
+          </div>
+          <div id="achievements">
+            <div id="achievement__id" class="achievements-form form">
+              <div class="form-group form-group-flex">
+                <input placeholder="Achievement" class="input-field" name="achievement" required />
+                <label class="label"> Achievement </label>
+              </div>
+              <div class="form-group form-group-flex">
+                <input data-toggle="datepicker" placeholder="Date" class="input-field" name="date" required
+                  autocomplete="off" />
+                <label class="label"> Date </label>
+              </div>
+              <div class="form-group-textarea">
+                <textarea placeholder="Description" class="textarea-field" name="description" required></textarea>
+                <label class="label"> Description </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
       </div>
       <div id="resume">
@@ -571,7 +645,6 @@
 
     <div class="cv-editor__footer">
       <button id="export-pdf">Export PDF</button>
-      <button id="export-docx">Export DOCX</button>
       <button id="generate-pdf">Generate PDF</button>
     </div>
   </div>

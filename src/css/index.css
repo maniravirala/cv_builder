@@ -11,13 +11,17 @@ input[type=date]:focus::-webkit-datetime-edit {
 }
 
 body::-webkit-scrollbar,
-textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar,
+#resume::-webkit-scrollbar,
+.cv-editor__body__left::-webkit-scrollbar {
     /* background: #acaaaa; */
     width: 6px;
 }
 
 body::-webkit-scrollbar-thumb,
-textarea::-webkit-scrollbar-thumb {
+textarea::-webkit-scrollbar-thumb,
+#resume::-webkit-scrollbar-thumb,
+.cv-editor__body__left::-webkit-scrollbar-thumb {
     background: #acaaaa;
     border-radius: 10px;
 }
@@ -40,6 +44,8 @@ body {
     /* 1rem is equal to the font-size of the root element (html) */
 }
 
+
+
 .cv-editor {
     height: 100vh;
     padding: 20px;
@@ -49,6 +55,7 @@ body {
 .cv-editor__header {
     text-align: center;
     margin-bottom: 20px;
+    font-size: x-large;
 }
 
 .cv-editor__body {
@@ -122,7 +129,7 @@ body {
     width: calc((100%/var(--total-columns)) - 10px);
 }
 
-.form-group-flex{
+.form-group-flex {
     flex: 1 1 30%;
 }
 
@@ -278,7 +285,7 @@ label {
     opacity: 0;
 }
 
-.form-group-textarea .textarea-field:focus::placeholder{
+.form-group-textarea .textarea-field:focus::placeholder {
     opacity: 1;
 }
 
@@ -298,7 +305,7 @@ label {
     overflow: visible;
     white-space: nowrap;
     font-weight: normal;
-    color: #CBD5E0;
+    color: #4A5568;
     transition: all 0.2s;
 }
 
@@ -311,7 +318,7 @@ label {
     color: #007bff;
 }
 
-.form-group-textarea .label::after{
+.form-group-textarea .label::after {
     content: '';
     position: absolute;
     bottom: -0.25rem;
@@ -324,14 +331,30 @@ label {
     transition: transform 0.4s;
 }
 
-.form-group-textarea .textarea-field:focus+.label::after{
+.form-group-textarea .textarea-field:focus+.label::after {
     transform: scaleX(1);
 }
 
-.zoom{
+.cv-editor__body__left-header{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.zoom {
     position: absolute;
     bottom: 10px;
     right: 10px;
     z-index: 100;
     color: rgb(26, 26, 26);
+}
+
+
+#education__id,
+#project__id,
+#skill__id,
+#achievement__id,
+#internship__id,
+#certificate__id,
+#activity__id {
+    display: none;
 }

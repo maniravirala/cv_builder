@@ -1,0 +1,86 @@
+.nav-parent {
+    position: relative;
+}
+
+.navbar {
+    /* position: fixed; */
+}
+
+.navbar li {
+    list-style: none;
+}
+
+/* create gooeey effect */
+
+.navbar__menu {
+    /* filter: url('#goo'); */
+}
+
+.navbar__item a {
+    position: relative;
+    display: inline-block;
+    padding: 15px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ff0000;
+    overflow: hidden;
+}
+
+.navbar__item a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: #e8e8e8;
+    border-radius: 4%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 4ms;
+    z-index: -1;
+}
+
+.navbar__item a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 0;
+    background: #cfcfcf;
+    border-radius: 4%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 300ms;
+}
+
+.navbar__item a:hover::before {
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.navbar__item a:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    height: 100%;
+    /* transform: none; */
+    z-index: -1;
+}
+
+.navbar__item a {
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    /* background: #e8e8e8; */
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+/* .navbar__item a:hover {
+    border: 1px solid white;
+  }
+  */
+.navbar__item a:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
